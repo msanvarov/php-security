@@ -85,7 +85,8 @@ Once you have developed the website and deployed on live server. The first thing
 ```
 display_errors=Off
 ```
-Can set specific log location:
+
+* Can set specific log location:
     ```
     log_errors=On
 
