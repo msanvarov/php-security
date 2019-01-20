@@ -87,11 +87,12 @@ display_errors=Off
 ```
 
 * Can set specific log location:
-    ```
-    log_errors=On
 
-    error_log=/var/log/httpd/php_scripts_error.log
-    ```
+```
+log_errors=On
+
+error_log=/var/log/httpd/php_scripts_error.log
+```
 
 OR
 * Manually Disable in PHP
