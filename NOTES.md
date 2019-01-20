@@ -88,3 +88,24 @@ $email = $mysqli->real_escape_string($email);
  ?>
 ```
 #### Problem: Errors
+
+* Might sound strange but fatal errors provide information about problems with code that can include sensitive information like the database name, password, username, etc.
+
+* When you go live, make sure to turn PHP errors off. But in test environments errors are encouraged.
+
+#### Solution:
+
+* In php.ini file change the 'display-errors' value to off when in production.
+
+``` PHP
+<?php
+// to check whether errors are enabled
+phpinfo();
+
+//remotely changing the settings
+
+error_reporting(0);
+ini_set('display_errors', 'Off');
+
+?>
+```  
