@@ -1,3 +1,4 @@
 # PHP Security
-## Outlining PHP vulnerabilities and how to fight against them
-## Please refer to the Notes.md for explanations, and all of the required files can be found the folders.
+## Outlining PHP Vulnerabilities
+## The sample database files are included in the folders
+## Please refer to the Notes.md for explanations
