@@ -1,10 +1,6 @@
 <?php
-
 require 'app/config.php';
-
-
 ?>
-
 
 <!doctype html>
 <html lang="en">
@@ -14,19 +10,10 @@ require 'app/config.php';
 </head>
 <body>
 
-
 <form action="delete.php" method="post">
-
     <input type="submit" value="Delete">
-
     <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'] ?>">
-
-
-
 </form>
-
-
-
 
 </body>
 </html>
