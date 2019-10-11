@@ -1,3 +1,4 @@
+
 # 💻 PHP Security
 
 ## 🏃 Get Latest PHP
@@ -10,15 +11,15 @@ Try to make sure to have the latest PHP versions installed as they come with upd
 
 **Note**: The example discussed below can be found in the [sql-injection folder](https://github.com/msanvarov/php-security/tree/master/sql-injection)
 
-SQL injection is the most common attack a developer is bound to experience. A single query can compromise a whole application. In SQL injection attack, the attacker tries to alter the data written to the database via malicious queries.
+An SQL injection is the most common attack a developer is bound to experience. A single query can compromise a whole application. In an SQL injection attack, the attacker tries to alter the data written to the database via malicious queries.
 
-Suppose your php application processes user data based on input to generate SQL queries, and suddenly, an anonymous attacker secretly injects a malicious SQL query in the input field.
+Suppose your PHP application processes user data based on input to generate SQL queries, and suddenly, an anonymous attacker secretly injects a malicious SQL query in the input field.
 
 These are common problems that I have noticed in PHP based web applications that permit this dangerous act:
 
 ### 🔥 Problem: No Escape on Forms
 
-Let's assume that you create a simple html form to take in user data.
+Let's assume that you create a simple HTML form to take in user data.
 
 ```HTML
 <form action="/action_page.php">
@@ -60,9 +61,9 @@ if (isset($_POST['email']))
 // ... hidden body of the form
 ```
 
-😔 The code above can seem normal but it is in fact extremely flawed.
+😔 The code above can seem normal but it is extremely flawed.
 
-If I was to execute an sql query attack then I could use the following line:
+If I was to execute an SQL query attack then I could use the following line:
 
 ```text
 // past this into the email input
@@ -96,11 +97,11 @@ $sql = "SELECT * FROM users WHERE username = '" . $username . "';
 
 **The \$username can contain altered data which can damage the database including deleting the whole database in the blink of an eye.**
 
-So, how can someone avoid this? The answer is to **use PDO** 😌. I recommend to constantly use prepared statements. PDO helps in preventing sql injections
+So, how can someone avoid this? The answer is to **use PDO** 😌. I recommend to constantly use prepared statements. PDO helps in preventing SQL injections
 
 ### 🧯 Fix: PDO to Prevent SQL Injections on Forms
 
-Prepare statements or escape strings statements can avoid sql injection.
+Prepare statements or escape strings statements that can avoid SQL injection.
 
 ```PHP
 <?php
@@ -117,13 +118,13 @@ $email = $mysqli->real_escape_string($email);
 
 ## ⛔ Errors
 
-Once you have developed a web application that ready to go into production. **The most important thing you must do is disable the display of errors, because hackers might get valuable information from debug errors.**
+Once you have developed a web application that ready to go into production. **The most important thing you must do is disable the display of errors because hackers might get valuable information from debug errors.**
 
 ### 🔥 Problem: Stealing Information from Code Errors in Production
 
-Fatal errors provide information about problems with code that can hold keys to sensitive information like the database names, passwords, usernames, etc.
+Fatal errors provide information about problems with code that can hold keys to sensitive information like database names, passwords, usernames, etc.
 
-Therefore when goiing live, make sure to turn PHP errors off.
+Therefore when going live, make sure to turn PHP errors off.
 
 ### 🧯 Fix: Create Loggers and Modify PHP Settings
 
@@ -133,7 +134,7 @@ If server permits, changing the 'display-errors' value in the php.ini file would
 display_errors=Off
 ```
 
-Can set specific log location. **Might be trick if the server paths are unknown**:
+Can set specific log location. **Might be tricky if the server paths are unknown**:
 
 ```text
 log_errors=On
@@ -160,7 +161,7 @@ ini_set('display_errors', 'Off');
 
 ## ❌ XSS
 
-**Cross site scripting is a type of malicious web attack in which an external script is injected into the website’s code or output.** The attacker can send infected code to the end user while browser can not identify it as a trusted script. This attack occurs mostly on the places where user has the ability to input and submit data. The attack can access cookies, sessions and other sensitive information about the browser.
+**Cross-site scripting is a type of malicious web attack in which an external script is injected into the website’s code or output.** The attacker can send infected code to the end-user while the browser can not identify it as a trusted script. This attack occurs mostly in the places where the user can input and submit data. The attack can access cookies, sessions and other sensitive information about the browser.
 
 ### 🔥 Problem: Injecting JS Code
 
@@ -191,7 +192,7 @@ window.location =
 
 On submit, each time a user navigates to the comment page, the malicious script will execute directing the user to anywhere the hacker has specified 🚧.
 
-### 🧯 Fix: HTMLSPECIALCHARS and ENT_QOUTES to Sanitize Input
+### 🧯 Fix: HTMLSPECIALCHARS and ENT_QUOTES for Sanitization
 
 Simply employ the `htmlspecialchars`, and `ENT_QUOTES` method on the post body to prevent injecting js into the database. These are built-in PHP methods to help sanitize input.
 
@@ -206,11 +207,11 @@ $body =  htmlspecialchars($_POST['body'], ENT_QUOTES);
 
 ### 🔥 Problem: Stealing Cookies
 
-Can be lethal if combined with a XSS attack, where cookies of users can be stolen (refer back to the xss folder files hacker.php and mycookies.text).
+It can be lethal if combined with an XSS attack, where cookies of users can be stolen (refer back to the XSS folder files hacker.php and mycookies.text).
 
-Assume that the htmlspecialchars method is not used and XSS problem still exists.
+Assume that the htmlspecialchars method is not used and the XSS problem still exists.
 
-A more damaging attack would be to redirect any user to a php file that steals cookies
+A more damaging attack would be to redirect any user to a PHP file that steals cookies
 
 This is a simple implementation of grabbing cookies from users. The malicious file meant to to steal cookies:
 
@@ -231,7 +232,7 @@ file_put_contents('mycookies.text', $cookie);
 </html>
 ```
 
-If the hacker was to write the following the comment in the form then each user accessing the comment section would be redirected to a file that steals their cookies.
+If the hacker was to write the following comment in the form then each user accessing the comment section would be redirected to a file that steals their cookies.
 
 This is something that can be used to do so:
 
@@ -257,16 +258,16 @@ $expires = new DateTime('+1 day');
 
 ## 🔑 Passwords
 
-Example can be found in the [password folder](https://github.com/msanvarov/php-security/tree/master/password)
+An example can be found in the [password folder](https://github.com/msanvarov/php-security/tree/master/password)
 
 ### 🔥 Problem: Improperly hashing passwords
 
-Clearly hashing passwords is a safer bet than not hashing passwords at all as hackers can expose sensitive information if passwords are not secured properly. But the idea of using any hashing algorithm is not effective as there are still proper ways of hashing passwords for guaranteed security.
+Hashing passwords is a safer bet than not hashing passwords at all as hackers can expose sensitive information if passwords are not secured properly. But the idea of using any hashing algorithm is not effective as there are still proper ways of hashing passwords for guaranteed security.
 
 ### 🧯 Fix: Hash Passwords to Prevent Vulnerabilities
 
 If you are using anything other than the password_hash method provided by php, like sha-1, sha-256, sha-512, md5, you are still risking data theft due to brute force.
-(when using password_hash please use without providing your own salt)
+(when using password_hash please use without providing your salt)
 
 ```PHP
 // Create the hash on account creation
@@ -301,13 +302,13 @@ Options -Indexes
 
 ---
 
-## ❌ Cross Site Request Forgery XSRF/CSRF
+## ❌ Cross-Site Request Forgery XSRF/CSRF
 
-The CSRF attack is quite different to XSS attacks. In CSRF attack, the end user can perform unwanted actions on the authenticated websites and can transfer malicious commands to the site to execute any undesirable action. CSRF can’t read the request data and mostly targets the state changing request by sending any link or altered data in HTML tags. It can force the user to perform state changing requests like transferring funds, changing their email addresses etc.
+The CSRF attack is quite different from XSS attacks. In a CSRF attack, the end-user can perform unwanted actions on the authenticated websites and can transfer malicious commands to the site to execute any undesirable action. CSRF can’t read the request data and mostly targets the state-changing request by sending any link or altered data in HTML tags. It can force the user to perform state-changing requests like transferring funds, changing their email addresses, etc.
 
 ### 🔥 Problem: CSRF Attacks
 
-Assume someone is sending money to another account thorugh a GET request, the following url will be:
+Assume someone is sending money to another account through a GET request, the following URL will be:
 
 > GET http://bank.com/transfer.do?acct=TIM&amount=100 HTTP/1.1
 
@@ -315,13 +316,11 @@ Now if someone wants to exploit the web application they will change the URL wit
 
 > http://bank.com/transfer.do?acct=Sandy&amount=100000
 
-Now this URL can be sent via email in any file, Image etc and the attacker might ask you to download the
-
-file or click on the image. And as soon as you do that, you instantly end up with sending huge amount of money you never know about.
+Now, this URL can be sent via email in any file, an image, etc. and the attacker might ask you to download the file or click on the image. And as soon as you do that, you instantly end up sending a huge amount of money you never know about.
 
 ### 🧯 Fix: Ajax Operations Instead of Static Requests
 
-When performing data manipulations, make sure to make functions like deleting, creating, inserting, etc. as ajax requests so that a hacker can't just manipulate the html to cause harm.
+When performing data manipulations, make sure to make functions like deleting, creating, inserting, etc. as ajax requests so that a hacker can't just manipulate the HTML to cause harm.
 
 Plus, you can check for the REQUEST type and make sure that it is a POST request.
 
@@ -338,7 +337,7 @@ Plus, you can check for the REQUEST type and make sure that it is a POST request
 $_SESSION['_token'] = bin2hex(openssl_random_pseudo_bytes(16));
 ```
 
-3. Check if request is POST and token is passed
+3. Check if the request is POST and token is passed
 
 ```PHP
 <?php
@@ -375,11 +374,11 @@ Furthermore:
 
 - Use HTTPS to protect the session ID during transmission
 
-- Store the session ID in a cookie and not in the URL to avoid leakage though Referer (see session.use_only_cookies)
+- Store the session ID in a cookie and not in the URL to avoid leakage through Referer (see session.use_only_cookies)
 
-- Set the cookie with the HttpOnly and Secure attributes to forbid access via JavaScript (in case of XSS vulnerabilities) and to forbid transmission via insecure channel (see session.cookie_httponly and session.cookie_secure)
+- Set the cookie with the HttpOnly and Secure attributes to forbid access via JavaScript (in case of XSS vulnerabilities) and to forbid transmission via an insecure channel (see session.cookie_httponly and session.cookie_secure)
 
-- Regenerate the session ID while invalidating the old one (see session_regenerate_id function) after certain session state changes (e. g. confirmation of authenticity after login or change of authorization/privileges) and can be done periodically to reduce the time span for a successful session hijacking attack.
+- Regenerate the session ID while invalidating the old one (see session_regenerate_id function) after certain session state changes (e. g. confirmation of authenticity after login or change of authorization/privileges) and can be done periodically to reduce the period for a successful session hijacking attack.
 
 ---
 
@@ -393,7 +392,7 @@ File uploading is a necessary part of any user data processing application. File
 
 Make sure that the POST request in the `<form>` tag contains the property enctype=”multipart/form-data”.
 
-Validate the file type to filter for JS, or other programming language files.
+Validate the file type to filter for JS or other programming language files.
 
 ```PHP
 <?php
@@ -416,9 +415,9 @@ HTML:
 ```HTML
 <form method="post" enctype="multipart/form-data" action="upload.php">
 
-   File: <input type="file" name="pictures[]" multiple="true">
+   File: <input type="file" name="pictures[]" multiple="true">
 
-   <input type="submit">
+   <input type="submit">
 
 </form>
 ```
@@ -429,26 +428,26 @@ PHP:
 <?php
 foreach ($_FILES['pictures']['error'] as $key => $error) {
 
-   if ($error == UPLOAD_ERR_OK) {
+   if ($error == UPLOAD_ERR_OK) {
 
-       $tmpName = $_FILES['pictures']['tmp_name'][$key];
+       $tmpName = $_FILES['pictures']['tmp_name'][$key];
 
-       $name = basename($_FILES['pictures']['name'][$key]);
+       $name = basename($_FILES['pictures']['name'][$key]);
 
-       move_uploaded_file($tmpName, "/var/www/project/uploads/$name");
+       move_uploaded_file($tmpName, "/var/www/project/uploads/$name");
 
-   }
+   }
 
 }
 ```
 
-Properly declaring the `UPLOAD_ERR` and `basename()` may prevent directory traversal attacks, but few other validations – like file size, file rename and store uploaded files in private location – are also required to strengthen the security of the applications.
+Properly declaring the `UPLOAD_ERR` and `basename()` may prevent directory traversal attacks, but few other validations – like file size, file rename, and store uploaded files in private location – are also required to strengthen the security of the applications.
 
 ---
 
 ## 📃 SSL Certificates For HTTPS
 
-All the modern browsers like Google Chrome, Opera, Firefox and others, recommend to use HTTPS protocol for web applications. HTTPs provides a secured and encrypted accessing channel for untrusted sites. You must include HTTPS by installing SSL certificate into your website. It also strengthens your web applications against XSS attacks and prevents the hackers to read transported data using codes.
+All the modern browsers like Google Chrome, Opera, Firefox and others, recommend using HTTPS protocol for web applications. HTTPs provides a secured and encrypted accessing channel for untrusted sites. You must include HTTPS by installing an SSL certificate on your website. It also strengthens your web applications against XSS attacks and prevents hackers to read transported data using codes.
 
 ---
 
