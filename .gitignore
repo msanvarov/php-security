@@ -1,0 +1,14 @@
+/vendor/
+/.phpunit.cache/
+composer.lock
+
+/var/*
+!/var/.gitkeep
+
+/examples/file-upload/uploads/
+/examples/xss/mycookies.text
+
+.DS_Store
+.idea/
+.vscode/
+*.swp

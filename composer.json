@@ -1,0 +1,25 @@
+{
+    "name": "msanvarov/php-security",
+    "description": "Hands-on examples of common PHP web vulnerabilities and how to fix them.",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
+        "ext-fileinfo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    },
+    "autoload": {
+        "files": [
+            "src/db.php",
+            "src/csrf.php",
+            "src/sanitize.php"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
